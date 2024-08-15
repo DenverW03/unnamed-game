@@ -11,14 +11,14 @@ impl Plugin for BasicFloor {
 
 fn add_floor(mut commands: Commands, mut meshes: ResMut<Assets<Mesh>>, mut materials: ResMut<Assets<ColorMaterial>>, window: Query<&Window>) {
     if let Ok(window) = window.get_single() {
-        let width = window.resolution.width();
+        let width: f32 = crate::RES_WIDTH as f32;
 
         commands.spawn((
             RigidBody::Static,
-            Collider::rectangle(width - 50.0, 20.0),
+            Collider::rectangle(width - 10.0, 20.0),
             MaterialMesh2dBundle {
                 mesh: meshes.add(Rectangle::new(width - 50.0, 20.0)).into(),
-                transform: Transform::from_xyz(0.0, -200.0, 0.0),
+                transform: Transform::from_xyz(0.0, -150.0, 0.0),
                 material: materials.add(Color::from(WHITE)),
                 ..default()
             },

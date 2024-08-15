@@ -12,15 +12,21 @@ impl Plugin for Player {
     }
 }
 
-fn add_player(mut commands: Commands, mut meshes: ResMut<Assets<Mesh>>, mut materials: ResMut<Assets<ColorMaterial>>) {
+fn add_player(mut commands: Commands, mut meshes: ResMut<Assets<Mesh>>, mut materials: ResMut<Assets<ColorMaterial>>, asset_server: Res<AssetServer>) {
     commands.spawn((
-        MaterialMesh2dBundle {
-            mesh: meshes.add(Capsule2d::new(10.0, 20.0)).into(),
-            material: materials.add(Color::srgb(0.2, 0.7, 0.9)),
-            transform: Transform::from_xyz(0.0, 0.0, 0.0),
+        //MaterialMesh2dBundle {
+        //    mesh: meshes.add(Capsule2d::new(10.0, 20.0)).into(),
+        //    material: materials.add(Color::srgb(0.2, 0.7, 0.9)),
+        //    transform: Transform::from_xyz(0.0, 0.0, 0.0),
+        //    ..default()
+        //},
+        SpriteBundle {
+            texture: asset_server.load("player/initialdesign.png"),
+            //transform: Transform::from_xyz(0.0, 0.0, 0.0).with_scale(Vec3 { x: 2.0, y: 2.0, z: 0.0}),
             ..default()
         },
         CharacterControllerBundle::new(Collider::capsule(10.0, 20.0), Vector::NEG_Y * 1500.0)
             .with_movement(1250.0, 0.92, 400.0, (30.0 as Scalar).to_radians()),
+        crate::PIXEL_PERFECT_LAYERS,
     ));
 }
