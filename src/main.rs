@@ -29,7 +29,7 @@ struct OuterCamera;
 
 fn main() {
     App::new()
-        .add_plugins((DefaultPlugins, PhysicsPlugins::default()))
+        .add_plugins((DefaultPlugins.set(ImagePlugin::default_nearest()), PhysicsPlugins::default()))
         .insert_resource(Gravity(Vector::NEG_Y * 1000.0))
         .insert_resource(Msaa::Off)
         .add_plugins((BasicFloor, Player, CharacterControllerPlugin))
